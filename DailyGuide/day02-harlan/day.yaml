@@ -1,0 +1,24 @@
+day: 2
+date: 2026-06-29
+title: "Camping HQ → Harlan"
+route: "Camping Headquarters → Harlan"
+camp: "Harlan"
+scout_law:
+  point: "Helpful"
+clone_wars_quote:
+  text: TBD
+trek_statistics:
+  mileage_mi: TBD
+  elevation_gain_ft: TBD
+  elevation_loss_ft: TBD
+weather:
+  expected_high_f: TBD
+  expected_low_f: TBD
+sun_moon:
+  sunrise: TBD
+  sunset: TBD
+  moonrise: TBD
+  moonset: TBD
+  moon_phase: TBD
+status:
+  content: draft

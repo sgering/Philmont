@@ -1,0 +1,24 @@
+day: 6
+date: 2026-07-03
+title: "Dean Skyline → Baldy Town"
+route: "Dean Skyline → Baldy Town"
+camp: "Baldy Town"
+scout_law:
+  point: "Kind"
+clone_wars_quote:
+  text: TBD
+trek_statistics:
+  mileage_mi: TBD
+  elevation_gain_ft: TBD
+  elevation_loss_ft: TBD
+weather:
+  expected_high_f: TBD
+  expected_low_f: TBD
+sun_moon:
+  sunrise: TBD
+  sunset: TBD
+  moonrise: TBD
+  moonset: TBD
+  moon_phase: TBD
+status:
+  content: draft

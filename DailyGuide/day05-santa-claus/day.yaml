@@ -1,0 +1,24 @@
+day: 5
+date: 2026-07-02
+title: "Cimarron River → Santa Claus"
+route: "Cimarron River → Santa Claus"
+camp: "Santa Claus"
+scout_law:
+  point: "Kind"
+clone_wars_quote:
+  text: TBD
+trek_statistics:
+  mileage_mi: TBD
+  elevation_gain_ft: TBD
+  elevation_loss_ft: TBD
+weather:
+  expected_high_f: TBD
+  expected_low_f: TBD
+sun_moon:
+  sunrise: TBD
+  sunset: TBD
+  moonrise: TBD
+  moonset: TBD
+  moon_phase: TBD
+status:
+  content: draft
