@@ -1,7 +1,57 @@
 maps:
-  route: placeholder
-  elevation_profile: placeholder
+  route:
+    path: assets/maps/day02-route-map.svg
+    status: placeholder
+    notes: Highlight Camping HQ to Harlan via Turkey Creek Trailhead, water at Harlan, and dry camp location.
+  geology:
+    path: assets/maps/day02-geology-map.svg
+    status: placeholder
+    notes: Overlay Pierre Shale dominance and nearby resistant ridge or dike features.
+  elevation_profile:
+    path: assets/maps/day02-elevation-profile.svg
+    status: placeholder
+    notes: Show mileage, climbs, descents, forest transition, and Harlan camp.
+
 photos:
-  hero: needed
+  harlan_camp:
+    path: assets/photos/day02-harlan-camp.jpg
+    status: needed
+    caption: Harlan staff camp in mixed-conifer forest.
+  ponderosa_transition:
+    path: assets/photos/day02-ponderosa-transition.jpg
+    status: needed
+    caption: Open ponderosa pine forest along the climb from headquarters.
+  turkey_creek_trailhead:
+    path: assets/photos/day02-turkey-creek-trailhead.jpg
+    status: needed
+    caption: Departure point at Turkey Creek Trailhead.
+  shale_slope:
+    path: assets/photos/day02-shale-slope.jpg
+    status: needed
+    caption: Soft rounded slopes typical of marine shale terrain.
+  ranger_training:
+    path: assets/photos/day02-ranger-training.jpg
+    status: needed
+    caption: Crew participating in ranger training at Harlan.
+
 illustrations:
-  geology: needed
+  differential_erosion_diagram:
+    path: assets/diagrams/day02-differential-erosion.svg
+    status: needed
+    description: Diagram showing resistant ridge or cap rock above easily eroded shale slopes.
+  forest_elevation_belt:
+    path: assets/diagrams/day02-forest-elevation-belt.svg
+    status: optional
+    description: Simplified elevation belt diagram from lower woodland to ponderosa and mixed conifer.
+  night_sky_chart:
+    path: assets/astronomy/day02-night-sky.svg
+    status: needed
+    description: Evening sky chart with Big Dipper, Bootes, and early Summer Triangle.
+
+icons:
+  geology: assets/icons/geology.svg
+  wildlife: assets/icons/wildlife.svg
+  plants: assets/icons/plants.svg
+  astronomy: assets/icons/astronomy.svg
+  scout_law: assets/icons/scout-law.svg
+  water: assets/icons/water.svg

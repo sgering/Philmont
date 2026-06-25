@@ -1,0 +1,46 @@
+# Python/cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments and local dependency folders
+.venv/
+venv/
+env/
+qgis_rasterio_nodeps/
+qgis_pyextras/
+.verify_pymupdf/
+
+# Editor/local agent state
+.vscode/
+.agents/
+.codex/
+
+# Scratch and archived local artifacts
+scratch/
+archive/
+.tmp_*
+DailySegments_Day*Only/
+DailyGuide/DailyMaps_*test*/
+DailyGuide/DailyMaps_original/
+
+# Generated map/book outputs
+DailyGuide/DailyMaps/*.pdf
+DailyGuide/DailyMaps/*.png
+DailyGuide/DailyInfoSheets/
+DailyGuide/Guidebook/
+
+# Large local source rasters kept outside GitHub
+References/GIS/Elevation/USGS_13_*.tif
+
+# Common temporary files
+*.tmp
+*.bak
+*.log
+Thumbs.db
+.DS_Store
+
+# Keep GIS sidecars trackable: do not ignore *.shp, *.shx, *.dbf, *.prj, *.cpg, *.qpj, *.sbn, *.sbx, *.xml.

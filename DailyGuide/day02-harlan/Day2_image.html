@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Day 2 - Camping HQ to Harlan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;600;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #ccc;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    font-family: 'Source Sans 3', sans-serif;
+  }
+  .page {
+    width: 2200px;
+    background: #f7f4ee;
+    border: 3px solid #2F5D3A;
+    padding: 28px 32px 20px;
+    color: #333;
+  }
+  .header {
+    display: grid;
+    grid-template-columns: 180px 1fr 320px 320px;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 18px;
+    border-bottom: 3px solid #2F5D3A;
+    padding-bottom: 16px;
+  }
+  .day-badge {
+    background: #2F5D3A;
+    color: #fff;
+    text-align: center;
+    padding: 16px 8px;
+    border-radius: 6px;
+  }
+  .day-badge .num { font-size: 72px; font-weight: 700; line-height: 1; }
+  .day-badge .lbl { font-size: 22px; letter-spacing: 2px; }
+  .title-block h1 {
+    font-family: 'Merriweather', serif;
+    font-size: 38px;
+    color: #2F5D3A;
+    margin-bottom: 6px;
+  }
+  .title-block .subtitle {
+    font-size: 22px;
+    color: #5C6166;
+    font-style: italic;
+  }
+  .theme-box {
+    background: #fff;
+    border: 2px solid #2F5D3A;
+    border-radius: 6px;
+    padding: 12px 14px;
+  }
+  .theme-box h3 {
+    font-size: 13px;
+    color: #2F5D3A;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .theme-box .point {
+    font-size: 28px;
+    font-weight: 700;
+    color: #2F5D3A;
+    margin-bottom: 4px;
+  }
+  .theme-box p { font-size: 13px; line-height: 1.35; }
+  .theme-box .quote {
+    font-style: italic;
+    font-size: 14px;
+    color: #5C6166;
+    margin-bottom: 4px;
+  }
+  .row { display: grid; gap: 16px; margin-bottom: 16px; }
+  .row-top { grid-template-columns: 1.1fr 1fr 1fr; }
+  .row-mid { grid-template-columns: 0.9fr 1.1fr 1fr; }
+  .row-photos { grid-template-columns: 1fr; }
+  .row-bottom { grid-template-columns: 1fr 1fr 1fr 1fr 1fr; }
+  .card {
+    background: #fff;
+    border: 2px solid #c8bfb0;
+    border-radius: 6px;
+    padding: 14px;
+  }
+  .card h2 {
+    font-size: 16px;
+    color: #2F5D3A;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #D8C6A3;
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+  }
+  .summary p {
+    font-family: 'Merriweather', serif;
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 12px;
+    font-size: 12px;
+  }
+  .stat { display: flex; align-items: center; gap: 6px; }
+  .stat b { color: #2F5D3A; min-width: 110px; }
+  .map-wrap, .elev-wrap { background: #e8eef0; border-radius: 4px; overflow: hidden; }
+  .map-wrap svg, .elev-wrap svg { width: 100%; display: block; }
+  .viewpoints { display: grid; gap: 8px; margin-top: 10px; }
+  .vp {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 8px;
+    align-items: center;
+    font-size: 11px;
+  }
+  .vp-img {
+    width: 80px; height: 54px;
+    background: linear-gradient(135deg, #5FA8D3, #2F5D3A);
+    border-radius: 4px;
+    border: 1px solid #999;
+  }
+  .vp b { color: #2F5D3A; display: block; font-size: 12px; }
+  .weather ul, .see-list { font-size: 12px; line-height: 1.55; padding-left: 18px; }
+  .see-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 16px;
+    font-size: 11px;
+  }
+  .see-item { display: flex; gap: 6px; align-items: start; }
+  .geo-story {
+    font-family: 'Merriweather', serif;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+  .geo-q {
+    background: #D8C6A3;
+    padding: 8px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #2F5D3A;
+    margin-bottom: 10px;
+  }
+  .rocks {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .rock {
+    flex: 1;
+    text-align: center;
+    font-size: 10px;
+  }
+  .rock-swatch {
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid #999;
+    margin-bottom: 4px;
+  }
+  .timeline {
+    display: flex;
+    gap: 6px;
+    font-size: 9px;
+    text-align: center;
+  }
+  .tl-step {
+    flex: 1;
+    background: #f0ebe3;
+    border: 1px solid #c8bfb0;
+    border-radius: 4px;
+    padding: 6px 4px;
+  }
+  .tl-step b { display: block; color: #A65A3A; font-size: 10px; margin-bottom: 2px; }
+  .photo-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+  }
+  .photo-card { text-align: center; }
+  .photo-placeholder {
+    height: 90px;
+    border-radius: 4px;
+    border: 1px solid #999;
+    margin-bottom: 4px;
+  }
+  .photo-card span { font-size: 9px; color: #555; line-height: 1.2; display: block; }
+  .night-box {
+    background: linear-gradient(180deg, #1a2744 0%, #0d1525 100%);
+    color: #e8eef5;
+    border-radius: 6px;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+  .night-box h2 {
+    color: #C49A32;
+    border-bottom-color: #3a5080;
+    grid-column: 1 / -1;
+  }
+  .night-box ul { font-size: 12px; line-height: 1.5; padding-left: 16px; }
+  .night-box p { font-size: 12px; line-height: 1.45; }
+  .bottom-card h2 { font-size: 13px; }
+  .bottom-card ul, .bottom-card p, .bottom-card ol {
+    font-size: 11px;
+    line-height: 1.45;
+    padding-left: 16px;
+  }
+  .bottom-card ol { padding-left: 18px; }
+  .riddle-answer {
+    margin-top: 6px;
+    font-size: 10px;
+    color: #888;
+    transform: rotate(180deg);
+    display: inline-block;
+  }
+  .skill-illus {
+    height: 60px;
+    background: linear-gradient(90deg, #D8C6A3, #2F5D3A);
+    border-radius: 4px;
+    margin: 8px 0;
+    opacity: 0.7;
+  }
+  .footer {
+    margin-top: 14px;
+    background: #2F5D3A;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 10px;
+  }
+  .footer b { font-size: 12px; letter-spacing: 1px; }
+  .lnt { display: flex; gap: 14px; flex-wrap: wrap; }
+  .lnt span { white-space: nowrap; }
+</style>
+</head>
+<body>
+<div class="page" id="capture">
+
+  <div class="header">
+    <div class="day-badge">
+      <div class="num">2</div>
+      <div class="lbl">DAY</div>
+    </div>
+    <div class="title-block">
+      <h1>CAMPING HQ → HARLAN</h1>
+      <div class="subtitle">First Steps into the Backcountry</div>
+    </div>
+    <div class="theme-box">
+      <h3>⚜ SCOUT LAW THEME</h3>
+      <div class="point">TRUSTWORTHY</div>
+      <p>Building trust within your crew begins as you leave base camp and enter the backcountry together.</p>
+    </div>
+    <div class="theme-box">
+      <h3>⚔ CLONE WARS REFLECTION</h3>
+      <p class="quote">"The best confidence builder is experience."</p>
+      <p><em>Rookies</em> — Trust grows through shared responsibility and follow-through on the trail.</p>
+    </div>
+  </div>
+
+  <div class="row row-top">
+    <div class="card summary">
+      <h2>🥾 Today's Hike Summary</h2>
+      <p>Depart Camping Headquarters via Turkey Creek Trailhead for your first true backcountry day. The route climbs from eastern shale country into cooler ponderosa and mixed-conifer forest at Harlan. Expect ranger training, a dry camp, and your first lesson in reading elevation-driven landscape change.</p>
+      <div class="stats">
+        <div class="stat"><b>📏 Mileage</b> 4.1 miles</div>
+        <div class="stat"><b>⬆ Gain</b> 1,630 ft</div>
+        <div class="stat"><b>⬇ Loss</b> 710 ft</div>
+        <div class="stat"><b>🏁 Start</b> 6,760 ft</div>
+        <div class="stat"><b>🏕 Camp</b> Harlan</div>
+        <div class="stat"><b>📊 Difficulty</b> Moderate</div>
+        <div class="stat"><b>🎯 Programs</b> Ranger Training</div>
+        <div class="stat"><b>💧 Water</b> Fill at Harlan (dry camp)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🧭 Route Map</h2>
+      <div class="map-wrap">
+        <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="260" fill="#dce8dc"/>
+          <text x="12" y="18" font-size="11" fill="#2F5D3A" font-weight="bold">N ↑</text>
+          <text x="340" y="248" font-size="9" fill="#555">~4 mi</text>
+          <!-- terrain -->
+          <ellipse cx="120" cy="180" rx="90" ry="50" fill="#c8bfb0" opacity="0.5"/>
+          <ellipse cx="280" cy="100" rx="100" ry="60" fill="#a8c4a0" opacity="0.6"/>
+          <!-- route -->
+          <path d="M 40 220 Q 120 160 180 130 T 340 70" fill="none" stroke="#A65A3A" stroke-width="4" stroke-dasharray="8 4"/>
+          <!-- markers -->
+          <circle cx="40" cy="220" r="10" fill="#2F5D3A"/><text x="28" y="240" font-size="9" fill="#333">HQ</text>
+          <circle cx="140" cy="145" r="8" fill="#5FA8D3"/><text x="115" y="158" font-size="8" fill="#333">Trailhead</text>
+          <circle cx="240" cy="100" r="8" fill="#C49A32"/><text x="220" y="92" font-size="8" fill="#333">Ponderosa</text>
+          <circle cx="340" cy="70" r="10" fill="#2F5D3A"/><text x="322" y="58" font-size="9" fill="#333">Harlan</text>
+          <!-- legend -->
+          <rect x="12" y="200" width="120" height="52" fill="#fff" stroke="#999" rx="3"/>
+          <line x1="20" y1="214" x2="40" y2="214" stroke="#A65A3A" stroke-width="3" stroke-dasharray="6 3"/>
+          <text x="46" y="218" font-size="8" fill="#333">Trek route</text>
+          <rect x="20" y="224" width="12" height="8" fill="#c8bfb0"/><text x="36" y="232" font-size="8" fill="#333">Shale terrain</text>
+          <rect x="20" y="238" width="12" height="8" fill="#a8c4a0"/><text x="36" y="246" font-size="8" fill="#333">Forest</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>📈 Elevation Profile</h2>
+      <div class="elev-wrap">
+        <svg viewBox="0 0 400 120" xmlns="http://www.w3.org/2000/svg">
+          <rect width="400" height="120" fill="#eef3f5"/>
+          <line x1="30" y1="10" x2="30" y2="100" stroke="#999"/>
+          <line x1="30" y1="100" x2="390" y2="100" stroke="#999"/>
+          <text x="4" y="55" font-size="8" fill="#555" transform="rotate(-90 4 55)">ft</text>
+          <text x="200" y="115" font-size="8" fill="#555">Distance (mi)</text>
+          <text x="8" y="20" font-size="8" fill="#555">7900</text>
+          <text x="8" y="55" font-size="8" fill="#555">7300</text>
+          <text x="8" y="95" font-size="8" fill="#555">6760</text>
+          <polyline points="30,95 80,70 140,35 200,40 280,55 340,65 390,72" fill="none" stroke="#2F5D3A" stroke-width="3"/>
+          <circle cx="30" cy="95" r="4" fill="#A65A3A"/>
+          <circle cx="390" cy="72" r="4" fill="#2F5D3A"/>
+          <text x="20" y="108" font-size="7" fill="#333">0</text>
+          <text x="185" y="108" font-size="7" fill="#333">2</text>
+          <text x="375" y="108" font-size="7" fill="#333">4.1</text>
+        </svg>
+      </div>
+      <div class="viewpoints">
+        <div class="vp"><div class="vp-img"></div><div><b>Turkey Creek Trailhead</b>Departure into the backcountry from headquarters country.</div></div>
+        <div class="vp"><div class="vp-img" style="background:linear-gradient(135deg,#C49A32,#2F5D3A)"></div><div><b>Ponderosa Transition</b>Open orange-barked pine forest marks rising elevation.</div></div>
+        <div class="vp"><div class="vp-img" style="background:linear-gradient(135deg,#2F5D3A,#1a3d24)"></div><div><b>Harlan Camp</b>Mixed-conifer staff camp; ranger training and dry camp.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-mid">
+    <div class="card weather">
+      <h2>🌤 Weather Considerations</h2>
+      <ul>
+        <li>Afternoon thunderstorms possible — plan early hiking</li>
+        <li>High UV exposure on open slopes</li>
+        <li>Variable wind in open country and forest edges</li>
+        <li>First significant climb — pace and hydrate</li>
+        <li>Dry camp: fill all water containers at Harlan</li>
+      </ul>
+      <h2 style="margin-top:14px">👀 What You'll See</h2>
+      <div class="see-grid">
+        <div class="see-item"><span>🪨</span> Soft shale slopes</div>
+        <div class="see-item"><span>🌲</span> Ponderosa pine belt</div>
+        <div class="see-item"><span>🌲</span> Douglas-fir pockets</div>
+        <div class="see-item"><span>🌼</span> Indian paintbrush</div>
+        <div class="see-item"><span>🦌</span> Deer &amp; elk sign</div>
+        <div class="see-item"><span>🐿</span> Abert's squirrel</div>
+        <div class="see-item"><span>🐦</span> Steller's jay</div>
+        <div class="see-item"><span>💧</span> Drainage incision</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🪨 Why These Hills Exist</h2>
+      <div class="geo-q">Key Question: Why do some ridges stand up while others dissolve into rounded slopes?</div>
+      <p class="geo-story">The route climbs from Upper Cretaceous marine shale country near headquarters into forested terrain at Harlan. Soft Pierre Shale weathers into broad, rounded hills with slick footing when wet, while resistant sandstone caps or distant porphyry ridges hold the skyline.</p>
+      <div class="rocks">
+        <div class="rock"><div class="rock-swatch" style="background:#4a4a4a"></div>Pierre Shale</div>
+        <div class="rock"><div class="rock-swatch" style="background:#8a7d6b"></div>Sandstone cap</div>
+        <div class="rock"><div class="rock-swatch" style="background:#b0a898"></div>Marine mudrock</div>
+        <div class="rock"><div class="rock-swatch" style="background:#c8c0b0"></div>Porphyry (distant)</div>
+      </div>
+      <div class="timeline">
+        <div class="tl-step"><b>~70 Ma</b>Marine shale deposited</div>
+        <div class="tl-step"><b>Laramide</b>Mountains uplifted</div>
+        <div class="tl-step"><b>Erosion</b>Shale weathers to slopes</div>
+        <div class="tl-step"><b>Today</b>Forest masks soft bedrock</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🪶 Voices from the Land</h2>
+      <p class="geo-story">This borderland between mountains and plains has long served as a travel corridor. Indigenous peoples moved seasonally through valleys and passes, using water sources as campsites. Travel respectfully and leave archaeological sites undisturbed.</p>
+      <p class="geo-q" style="font-weight:400;font-style:italic">Reflection: Imagine this landscape before roads and trails. How would you choose a camp and find water?</p>
+    </div>
+  </div>
+
+  <div class="row row-photos">
+    <div class="card">
+      <h2>📷 Photos from Today</h2>
+      <div class="photo-row">
+        <div class="photo-card"><div class="photo-placeholder" style="background:linear-gradient(135deg,#5FA8D3,#2F5D3A)"></div><span>Harlan camp in mixed-conifer forest</span></div>
+        <div class="photo-card"><div class="photo-placeholder" style="background:linear-gradient(135deg,#C49A32,#8B6914)"></div><span>Ponderosa pine transition zone</span></div>
+        <div class="photo-card"><div class="photo-placeholder" style="background:linear-gradient(135deg,#8a7d6b,#5C6166)"></div><span>Soft shale slopes near HQ</span></div>
+        <div class="photo-card"><div class="photo-placeholder" style="background:linear-gradient(135deg,#2F5D3A,#1a3d24)"></div><span>Turkey Creek Trailhead departure</span></div>
+        <div class="photo-card"><div class="photo-placeholder" style="background:linear-gradient(135deg,#A65A3A,#D8C6A3)"></div><span>Indian paintbrush along trail</span></div>
+        <div class="photo-card"><div class="photo-placeholder" style="background:linear-gradient(135deg,#5C6166,#333)"></div><span>Ranger training at Harlan</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="night-box">
+      <h2>🌌 Nighttime Viewing</h2>
+      <div>
+        <p><b>Constellations:</b></p>
+        <ul>
+          <li>Big Dipper</li>
+          <li>Bootes</li>
+          <li>Summer Triangle (rising)</li>
+        </ul>
+      </div>
+      <div>
+        <p><b>🔭 Binocular Challenge</b></p>
+        <p>Split the double star Mizar in the Big Dipper's handle.</p>
+      </div>
+      <div>
+        <p><b>🔥 Campfire Astronomy</b></p>
+        <p>Why do stars appear to rise in the east and set in the west?</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row row-bottom">
+    <div class="card bottom-card">
+      <h2>💡 Fun Facts</h2>
+      <ul>
+        <li>Harlan is your first staffed trail camp after leaving headquarters.</li>
+        <li>Pierre Shale can become slick as soap when wet.</li>
+        <li>Ponderosa bark smells like vanilla or butterscotch in warm sun.</li>
+        <li>Dry camp means you carry water needs from Harlan's source.</li>
+      </ul>
+    </div>
+    <div class="card bottom-card">
+      <h2>❓ Daily Riddle</h2>
+      <p>I was laid down in a shallow sea, yet I now form soft hills beneath your boots. I swell when wet and make slick trails, but I rarely form cliffs. What am I?</p>
+      <div class="riddle-answer">Answer: Marine shale (Pierre Shale)</div>
+    </div>
+    <div class="card bottom-card">
+      <h2>✔ Daily Challenge</h2>
+      <p><b>Backcountry Readiness</b></p>
+      <ol>
+        <li>Complete ranger training</li>
+        <li>Identify ponderosa pine</li>
+        <li>Notice vegetation change with elevation</li>
+        <li>Set up dry camp (LNT)</li>
+        <li>Fill water at Harlan</li>
+      </ol>
+    </div>
+    <div class="card bottom-card">
+      <h2>⚜ Scout Skill of the Day</h2>
+      <p><b>Crew Communication &amp; Accountability</b></p>
+      <div class="skill-illus"></div>
+      <p>Trustworthy crews communicate clearly, follow through on tasks, and hold each other accountable on the trail.</p>
+    </div>
+    <div class="card bottom-card">
+      <h2>✍ Scout Reflection</h2>
+      <ul>
+        <li>How did you build trust with your crew today?</li>
+        <li>When did you follow through on a commitment?</li>
+        <li>What backcountry skill do you want to improve?</li>
+        <li>How will you prepare for dry camp tonight?</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer">
+    <b>LEAVE NO TRACE</b>
+    <div class="lnt">
+      <span>Plan Ahead</span><span>Travel on Durable Surfaces</span><span>Dispose of Waste</span>
+      <span>Leave What You Find</span><span>Minimize Campfire Impact</span><span>Respect Wildlife</span><span>Be Considerate</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

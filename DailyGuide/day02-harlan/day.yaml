@@ -1,24 +1,134 @@
 day: 2
 date: 2026-06-29
-title: "Camping HQ → Harlan"
-route: "Camping Headquarters → Harlan"
-camp: "Harlan"
+title: Camping Headquarters to Harlan
+subtitle: First Steps into the Backcountry
+route:
+  start: Camping Headquarters
+  end: Harlan
+  camp: Harlan
+  trailhead: Turkey Creek Trailhead
 scout_law:
-  point: "Helpful"
+  point: Trustworthy
+  statement: A Scout is Trustworthy.
+  reflection_prompt: How will you build trust within your crew as you leave base camp and enter the backcountry?
 clone_wars_quote:
-  text: TBD
+  text: The best confidence builder is experience.
+  episode: Rookies
 trek_statistics:
-  mileage_mi: TBD
-  elevation_gain_ft: TBD
-  elevation_loss_ft: TBD
+  mileage_mi: 4.1
+  elevation_gain_ft: 1630
+  elevation_loss_ft: 710
+  start_elevation_ft: 6760
+  end_elevation_ft: TBD
+  highest_point_ft: TBD
+  estimated_hiking_time: TBD
+  difficulty: Moderate
+program_features:
+  - Ranger Training
+  - Dry camp (water at Harlan)
+  - Food pickup at Camping Headquarters
 weather:
   expected_high_f: TBD
   expected_low_f: TBD
+  thunderstorm_risk: Afternoon thunderstorms possible
+  wind: Variable in open country and forest edges
+  uv_index: High
+  water_availability: Dry camp; fill containers at Harlan before settling in
+  altitude_notes: First significant climb of the trek; pace accordingly and watch hydration
 sun_moon:
+  location: Philmont Scout Ranch, New Mexico
   sunrise: TBD
   sunset: TBD
   moonrise: TBD
   moonset: TBD
   moon_phase: TBD
+  moon_illumination_percent: TBD
+  astronomical_twilight_ends: TBD
+  best_dark_sky_window: TBD
+navigation:
+  route_map: assets/maps/day02-route-map.svg
+  geology_map: assets/maps/day02-geology-map.svg
+  elevation_profile: assets/maps/day02-elevation-profile.svg
+  important_viewpoints:
+    - Turkey Creek Trailhead
+    - Ponderosa pine transition zone
+    - Harlan camp
+geology:
+  landscape_story: >
+    The route climbs from the eastern shale country near Camping Headquarters into cooler forested
+    terrain at Harlan, where Upper Cretaceous marine mudrock dominates lower relief and resistant
+    ridges or intrusions begin to shape the skyline.
+  key_question: Why do some ridges stand up while others dissolve into rounded slopes?
+  rock_types:
+    - Pierre Shale
+    - marine shale and mudrock
+    - local sandstone caps
+    - porphyry dikes (possible distant skyline influence)
+  processes:
+    - marine deposition
+    - Laramide uplift
+    - differential erosion
+    - drainage incision
+  field_observations:
+    - soft rounded hills
+    - slick footing when wet
+    - sparse cliff-forming outcrop
+    - resistant ridges above shale slopes
+    - vegetation-mantled slopes
+voices_from_the_land:
+  theme: Travel corridors, seasonal movement, and mountain-plains borderlands
+  evidence_level: Needs source verification
+  topics:
+    - Indigenous travel through valleys and passes in the Cimarron Range borderlands
+    - Water sources as campsites and travel corridors
+    - Mountain-plains ecotone access to varied resources
+    - Respectful visitation of archaeological and cultural sites
+  reflection_question: >
+    Imagine this landscape before roads, ranches, and trails. How would you choose a camp, find water,
+    and move safely through these hills?
+natural_history:
+  trees:
+    - ponderosa pine
+    - Douglas-fir
+    - pinyon-juniper (lower slopes)
+  wildflowers:
+    - Indian paintbrush
+    - lupine
+    - penstemon
+  birds:
+    - Steller's jay
+    - mountain chickadee
+    - broad-tailed hummingbird
+  mammals:
+    - mule deer
+    - elk
+    - Abert's squirrel
+    - black bear
+night_sky:
+  constellations:
+    - Big Dipper
+    - Bootes
+    - Summer Triangle (rising)
+  deep_sky_objects:
+    - Mizar and Alcor
+    - Hercules Cluster (M13)
+  binocular_challenge: Split the double star Mizar in the Big Dipper's handle.
+  campfire_topic: Why do stars appear to rise in the east and set in the west?
+daily_riddle:
+  question: >
+    I was laid down in a shallow sea, yet I now form soft hills beneath your boots. I swell when wet
+    and make slick trails, but I rarely form cliffs. What am I?
+  answer: Marine shale (Pierre Shale).
+daily_challenge:
+  title: Backcountry Readiness
+  tasks:
+    - Complete ranger training with full attention and follow-through
+    - Identify ponderosa pine by bark and open forest spacing
+    - Notice how vegetation changes with elevation along the climb
+    - Set up dry camp using Leave No Trace principles
+    - Fill water containers at Harlan before settling in for the night
 status:
-  content: draft
+  content_status: draft
+  data_status: needs verification
+  astronomy_status: needs calculation
+  map_status: placeholder

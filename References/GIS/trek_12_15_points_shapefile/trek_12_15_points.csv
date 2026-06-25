@@ -1,0 +1,15 @@
+seq,day,name,type,role,elev_ft,elevsrc,easting,northing,lon,lat,notes
+1,1,Camping HQ,Base/Finish,start/end,-9999,missing,504391,4033974,-104.95099968,36.45100046,Opening Campfire; trek starts at Camping HQ
+2,2,Turkey Creek Trailhead,Trailhead,start,6637,UTM guide,501708,4041770,-104.98092275,36.52129157,Bus drop/start for Day 2 to Harlan
+3,2,Harlan,Staff Camp,overnight,7550,UTM guide,498402,4041184,-105.01784741,36.51600888,Day 2 destination; ranger training; dry camp
+4,3,Devil's Wash Basin,Trail Camp,overnight,8515,UTM guide,494932,4042281,-105.0566096,36.5258864,Dry camp
+5,4,Cimarron River,Trail Camp,overnight,7282,UTM guide,494007,4046488,-105.06697456,36.56380764,Trail camp; Ute Gulch food pickup passthrough
+6,5,Santa Claus,Trail Camp,overnight,8438,UTM guide,491849,4049566,-105.09112379,36.59154001,Dry camp
+7,6,Baldy Town,Staff Camp,overnight,9851,UTM guide,482894,4053456,-105.1913221,36.62648968,Food pickup; Baldy prep
+8,7,Baldy Town,Staff Camp,layover,9851,UTM guide,482894,4053456,-105.1913221,36.62648968,Layover/Baldy Mountain day
+9,8,Pueblano,Staff Camp,overnight,8069,UTM guide,489738,4053274,-105.11477312,36.62494728,Continental Tie & Lumber program
+10,9,Elkhorn,Trail Camp,overnight,8496,UTM guide,492424,4051874,-105.08471836,36.61235143,Conservation/trail construction
+11,10,Ponil,Staff Camp,overnight,7150,UTM guide,496697,4053001,-105.03694054,36.62253573,Food pickup; chuckwagon dinner
+12,11,Indian Writings,Staff Camp,overnight,6979,UTM guide,500421,4053139,-104.99529149,36.62378544,Hart Peak; archaeology program
+13,12,Six Mile Gate Trailhead,Trailhead,trailhead,6733,UTM guide,503226,4049105,-104.96393697,36.58741345,Hike to Six Mile Gate; bus return
+14,12,Camping HQ,Base/Finish,finish,-9999,missing,504391,4033974,-104.95099968,36.45100046,Closing Campfire; trek finishes at Camping HQ
