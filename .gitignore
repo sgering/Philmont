@@ -28,7 +28,7 @@ DailyGuide/DailyMaps_*test*/
 DailyGuide/DailyMaps_original/
 
 # Generated map/book outputs
-DailyGuide/DailyMaps/*.pdf
+DailyGuide/DailyMaps/DailyMaps_combined.pdf
 DailyGuide/DailyMaps/*.png
 DailyGuide/DailyInfoSheets/
 DailyGuide/Guidebook/
