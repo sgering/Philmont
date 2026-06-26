@@ -148,7 +148,7 @@ Chuckwagon Dinner; Campfire Show
 - elevation_loss: 2,080'
 - start_elevation: 7,150'
 - end_elevation: 6,979'
-- highest_point: 7,150'
+- highest_point: 7,976'
 - difficulty: Moderate
 - estimated_hiking_time: 3h 0m
 - program: Hart Peak; Ancestral Puebloan Archaeology Program

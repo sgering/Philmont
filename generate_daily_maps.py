@@ -782,6 +782,45 @@ def anchor_profile_endpoint(profile, target_end_ft):
     return miles.copy(), adjusted
 
 
+def make_day11_hill_profile(profile, target_start_ft, target_end_ft):
+    if profile is None or target_start_ft is None or target_end_ft is None:
+        return profile
+    miles, elevations = profile
+    miles = np.asarray(miles, dtype='float64')
+    elevations = np.asarray(elevations, dtype='float64')
+    valid_idx = np.where(np.isfinite(elevations))[0]
+    if len(valid_idx) < 3:
+        return profile
+
+    high_ft = float(np.nanmax(elevations[valid_idx]))
+    peak_fraction = 0.42
+    mile_start = miles[valid_idx[0]]
+    mile_end = miles[valid_idx[-1]]
+    peak_mile = mile_start + (mile_end - mile_start) * peak_fraction
+
+    adjusted = elevations.copy()
+    valid_miles = miles[valid_idx]
+    base = np.interp(
+        valid_miles,
+        [mile_start, peak_mile, mile_end],
+        [target_start_ft, high_ft, target_end_ft],
+    )
+
+    sampled_trend = np.interp(
+        valid_miles,
+        [valid_miles[0], valid_miles[-1]],
+        [elevations[valid_idx[0]], elevations[valid_idx[-1]]],
+    )
+    residual = elevations[valid_idx] - sampled_trend
+    residual -= np.interp(valid_miles, [valid_miles[0], valid_miles[-1]], [residual[0], residual[-1]])
+    residual = np.clip(residual * 0.25, -45, 45)
+
+    adjusted[valid_idx] = base + residual
+    adjusted[valid_idx[0]] = target_start_ft
+    adjusted[valid_idx[-1]] = target_end_ft
+    return miles.copy(), adjusted
+
+
 def anchor_profile_endpoints(profile, target_start_ft, target_end_ft):
     if profile is None or target_start_ft is None or target_end_ft is None:
         return profile
@@ -822,6 +861,10 @@ def adjust_daily_profile(day_num, profile, meta):
         profile = anchor_profile_endpoint(profile, target_end)
     if day_num == 7:
         profile = make_out_and_back_peak_profile(profile)
+    if day_num == 11:
+        target_start = parse_elevation_feet(meta.get('start_elevation') or meta.get('start_elevation_ft'))
+        target_end = parse_elevation_feet(meta.get('end_elevation') or meta.get('end_elevation_ft'))
+        profile = make_day11_hill_profile(profile, target_start, target_end)
     return profile
 
 
