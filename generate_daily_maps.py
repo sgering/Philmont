@@ -735,6 +735,96 @@ def make_out_and_back_peak_profile(profile):
     return out_and_back_miles, out_and_back_elevations
 
 
+def parse_elevation_feet(value):
+    if value is None:
+        return None
+    text = str(value).strip()
+    if text.upper() in {'TBD', 'N/A', 'NONE', ''}:
+        return None
+    match = re.search(r'-?[\d,]+(?:\.\d+)?', text)
+    if not match:
+        return None
+    return float(match.group(0).replace(',', ''))
+
+
+def reverse_profile(profile):
+    if profile is None:
+        return None
+    miles, elevations = profile
+    miles = np.asarray(miles, dtype='float64')
+    elevations = np.asarray(elevations, dtype='float64')
+    return miles.copy(), elevations[::-1].copy()
+
+
+def anchor_profile_endpoint(profile, target_end_ft):
+    if profile is None or target_end_ft is None:
+        return profile
+    miles, elevations = profile
+    miles = np.asarray(miles, dtype='float64')
+    elevations = np.asarray(elevations, dtype='float64')
+    valid_idx = np.where(np.isfinite(elevations))[0]
+    if len(valid_idx) < 3:
+        return profile
+
+    end_idx = valid_idx[-1]
+    end_delta = target_end_ft - elevations[end_idx]
+    if abs(end_delta) < 1:
+        return miles.copy(), elevations.copy()
+
+    ramp = np.zeros(len(elevations), dtype='float64')
+    if end_idx > 0:
+        ramp[:end_idx + 1] = np.linspace(0, end_delta, end_idx + 1)
+        ramp[end_idx + 1:] = end_delta
+    else:
+        ramp[:] = end_delta
+    adjusted = elevations.copy()
+    adjusted[np.isfinite(adjusted)] += ramp[np.isfinite(adjusted)]
+    return miles.copy(), adjusted
+
+
+def anchor_profile_endpoints(profile, target_start_ft, target_end_ft):
+    if profile is None or target_start_ft is None or target_end_ft is None:
+        return profile
+    miles, elevations = profile
+    miles = np.asarray(miles, dtype='float64')
+    elevations = np.asarray(elevations, dtype='float64')
+    valid_idx = np.where(np.isfinite(elevations))[0]
+    if len(valid_idx) < 3:
+        return profile
+
+    start_idx = valid_idx[0]
+    end_idx = valid_idx[-1]
+    if end_idx <= start_idx:
+        return profile
+
+    start_delta = target_start_ft - elevations[start_idx]
+    end_delta = target_end_ft - elevations[end_idx]
+    ramp = np.zeros(len(elevations), dtype='float64')
+    ramp[:start_idx + 1] = start_delta
+    ramp[start_idx:end_idx + 1] = np.linspace(start_delta, end_delta, end_idx - start_idx + 1)
+    ramp[end_idx:] = end_delta
+
+    adjusted = elevations.copy()
+    adjusted[np.isfinite(adjusted)] += ramp[np.isfinite(adjusted)]
+    return miles.copy(), adjusted
+
+
+def adjust_daily_profile(day_num, profile, meta):
+    if profile is None:
+        return None
+    if day_num in {3, 5, 8, 9, 10}:
+        profile = reverse_profile(profile)
+        target_start = parse_elevation_feet(meta.get('start_elevation') or meta.get('start_elevation_ft'))
+        target_end = parse_elevation_feet(meta.get('end_elevation') or meta.get('end_elevation_ft'))
+        profile = anchor_profile_endpoints(profile, target_start, target_end)
+    if day_num == 6:
+        target_end = parse_elevation_feet(meta.get('end_elevation') or meta.get('end_elevation_ft'))
+        profile = anchor_profile_endpoint(profile, target_end)
+    if day_num == 7:
+        profile = make_out_and_back_peak_profile(profile)
+    return profile
+
+
 def sample_full_trip_profile(trails_gdf, dem_img, dem_transform, samples_per_day=80):
     if dem_img is None or dem_transform is None or trails_gdf is None or trails_gdf.empty:
         return None
@@ -1198,10 +1288,27 @@ def draw_elevation_profile(ax, profile):
     inner.fill_between(miles, elevations, ymin - ypad, color='#b99f76', alpha=0.14)
     valid_idx = np.where(np.isfinite(elevations))[0]
     if len(valid_idx):
+        start_idx = valid_idx[0]
+        end_idx = valid_idx[-1]
+        high_idx = valid_idx[np.nanargmax(elevations[valid_idx])]
+        start_offset = (4, 7)
+        start_ha = 'left'
+        end_offset = (-4, 7)
+        end_ha = 'right'
+        high_offset = (0, 9)
+        high_ha = 'center'
+        if high_idx == end_idx:
+            end_offset = (-8, 4)
+            high_offset = (-3, 16)
+            high_ha = 'right'
+        elif high_idx == start_idx:
+            start_offset = (4, 3)
+            high_offset = (6, 12)
+            high_ha = 'left'
         marker_specs = [
-            ('Start', valid_idx[0], '#2f7d32', (4, 7), 'left'),
-            ('End', valid_idx[-1], '#5f4b8b', (-4, 7), 'right'),
-            ('High', valid_idx[np.nanargmax(elevations[valid_idx])], '#b3261e', (0, 9), 'center'),
+            ('Start', start_idx, '#2f7d32', start_offset, start_ha),
+            ('End', end_idx, '#5f4b8b', end_offset, end_ha),
+            ('High', high_idx, '#b3261e', high_offset, high_ha),
         ]
         used = set()
         for label, idx, color, offset, ha in marker_specs:
@@ -1995,8 +2102,7 @@ def create_map_for_day(day_shp: Path, topo_raster: Path, geology_raster: Path, d
         meta.update(daily_hiking_stats[day_num])
     daily_content = daily_content or {}
     profile = sample_elevation_profile(trail, dem_img, dem_transform)
-    if day_num == 7:
-        profile = make_out_and_back_peak_profile(profile)
+    profile = adjust_daily_profile(day_num, profile, meta)
 
     fig = plt.figure(figsize=PAGE_SIZE, facecolor=STYLE['page_face'])
     header_ax = fig.add_axes(LAYOUT['header'])
